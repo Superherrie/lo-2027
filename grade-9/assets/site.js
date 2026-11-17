@@ -25,6 +25,60 @@
       if (e.key === "ArrowRight") show(i + 1);
     });
     show(0);
+
+    // tap-to-enlarge: full-screen view with arrows, swipe, Esc to close
+    var zoom = document.createElement("button");
+    zoom.type = "button"; zoom.className = "zoom"; zoom.textContent = "⤢ Full screen";
+    zoom.setAttribute("aria-label", "Show the slides full screen");
+    v.querySelector(".viewer-bar").appendChild(zoom);
+    var lb = document.createElement("div");
+    lb.className = "lightbox"; lb.hidden = true;
+    lb.setAttribute("role", "dialog"); lb.setAttribute("aria-modal", "true"); lb.setAttribute("aria-label", "Lesson slides, full screen");
+    lb.innerHTML = '<p class="lb-hint">Turn your phone sideways for a bigger slide.</p>' +
+      '<button type="button" class="lb-close" aria-label="Close">✕</button><img alt="">' +
+      '<div class="lb-bar"><button type="button" class="lb-prev" aria-label="Previous slide">&larr;</button>' +
+      '<span class="lb-count"></span><button type="button" class="lb-next" aria-label="Next slide">&rarr;</button></div>';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector("img"), lbCount = lb.querySelector(".lb-count"),
+      lbPrev = lb.querySelector(".lb-prev"), lbNext = lb.querySelector(".lb-next");
+    function lbShow(n) {
+      show(n);                                   // keep the page viewer in step
+      lbImg.src = imgs[i]; lbImg.alt = img.alt; lbCount.textContent = count.textContent;
+      lbPrev.disabled = i === 0; lbNext.disabled = i === imgs.length - 1;
+    }
+    function open() {
+      lb.hidden = false; document.body.classList.add("lb-open"); lbShow(i); lb.querySelector(".lb-close").focus();
+      try {                                      // phones: real full screen, landscape where the browser allows it
+        var r = lb.requestFullscreen ? lb.requestFullscreen() : null;
+        if (r && r.then) r.then(function () {
+          if (screen.orientation && screen.orientation.lock) screen.orientation.lock("landscape").catch(function () {});
+        }).catch(function () {});
+      } catch (e) { /* not supported: the overlay still fills the window */ }
+    }
+    function close() {
+      lb.hidden = true; document.body.classList.remove("lb-open");
+      try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+      zoom.focus();
+    }
+    img.addEventListener("click", open);
+    zoom.addEventListener("click", open);
+    lb.querySelector(".lb-close").addEventListener("click", close);
+    lbPrev.addEventListener("click", function () { lbShow(i - 1); });
+    lbNext.addEventListener("click", function () { lbShow(i + 1); });
+    lbImg.addEventListener("click", function () { lbShow(i + 1); });
+    document.addEventListener("fullscreenchange", function () { if (!document.fullscreenElement && !lb.hidden) close(); });
+    lb.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") lbShow(i - 1);
+      if (e.key === "ArrowRight") lbShow(i + 1);
+    });
+    var x0 = null;                               // swipe left / right
+    lb.addEventListener("touchstart", function (e) { x0 = e.touches.length === 1 ? e.touches[0].clientX : null; }, { passive: true });
+    lb.addEventListener("touchend", function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 50) lbShow(dx < 0 ? i + 1 : i - 1);
+    });
   });
 
   // self-marking quiz
