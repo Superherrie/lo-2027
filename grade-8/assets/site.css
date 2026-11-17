@@ -14,6 +14,10 @@ img { max-width: 100%; }
   background: var(--card); border-bottom: 4px solid var(--head); }
 .brand img { height: 40px; display: block; }
 .site-title { font-weight: 700; color: var(--dark); }
+/* back to the front page (both subjects, all grades) */
+.back { margin-left: auto; padding: 6px 14px; border-radius: 8px; background: var(--head); color: #fff; font-weight: 700;
+  text-decoration: none; white-space: nowrap; }
+.back:hover { filter: brightness(1.08); }
 .menu-btn { display: none; margin-left: auto; font: inherit; padding: 6px 14px; border-radius: 8px; border: 2px solid var(--accent);
   background: var(--card); color: var(--accent); font-weight: 700; }
 
@@ -106,8 +110,11 @@ body.lb-open { overflow: hidden; }
 
 @media (max-width: 860px) {
   .layout { grid-template-columns: 1fr; }
-  .menu-btn { display: block; }
+  .menu-btn { display: block; margin-left: 0; }
   .site-title { display: none; }
+  .top { gap: 10px; padding: 10px 14px; }
+  .brand img { height: 32px; }
+  .back { padding: 6px 10px; font-size: .9rem; }
   .side { display: none; position: static; max-height: none; border-bottom: 1px solid var(--line); background: var(--card); }
   .side.open { display: block; }
   main { padding: 16px 16px 50px; }
