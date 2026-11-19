@@ -47,8 +47,17 @@ main { padding: 24px 28px 60px; min-width: 0; }
 .callout { border-radius: 12px; padding: 12px 16px; margin: 14px 0; }
 .callout p { margin: .3rem 0 0; }
 .callout.mint { background: var(--mint); } .callout.peach { background: var(--peach); } .callout.butter { background: var(--butter); }
+/* Pause and reflect: the biblical thinking question, always with the Bible icon (Angela, 19 Nov 2026) */
+.callout.pause { display: flex; gap: 14px; align-items: center; background: #FFF4D6; border: 3px solid #D4A017; }
+.callout.pause img { flex: none; width: 56px; height: 56px; }
+.callout.pause strong { color: #7A4E00; text-transform: uppercase; letter-spacing: .03em; }
 .gloss { display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: 6px 16px; margin: 0; }
 .gloss dt { font-weight: 700; color: var(--dark); } .gloss dd { margin: 0; }
+/* Words to know (Angela, 18 Nov 2026: the heading and the words must not look the same) */
+.words-title { display: inline-block; margin-top: 1.6rem; padding: 4px 14px; border-radius: 8px; background: var(--head);
+  color: #fff; font-size: 1.2rem; }
+table.words td.w { width: 32%; font-weight: 700; color: var(--accent); background: var(--soft); }
+table.words tbody tr:nth-child(even) td:not(.w) { background: var(--bg); }
 .tablewrap { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: .95rem; }
 th { background: var(--head); color: #fff; text-align: left; }
@@ -106,6 +115,45 @@ body.lb-open { overflow: hidden; }
 .downloads a { font-weight: 700; font-size: 1.05rem; color: var(--dark); }
 .lessons .n { display: block; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; opacity: .75; }
 
+/* self-check quizzes (Angela, 19 Nov 2026): learning style (8.08) and career interests (8.09). Nothing is stored or sent. */
+.btn { display: inline-block; font: inherit; font-weight: 700; padding: 10px 20px; border-radius: 10px; border: 2px solid var(--head);
+  background: var(--head); color: #fff; text-decoration: none; cursor: pointer; }
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: var(--card); color: var(--accent); border-color: var(--accent); }
+.callout.quiz-cta { background: var(--soft); border: 3px solid var(--head); padding: 16px 18px; }
+.callout.quiz-cta strong { font-size: 1.15rem; color: var(--dark); }
+.callout.quiz-cta .btn { margin-top: 10px; font-size: 1.1rem; padding: 12px 26px; }
+.callout.quiz-cta { scroll-margin-top: 150px; }
+.quiz-note { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 14px; border-radius: 12px;
+  background: var(--soft); border: 2px solid var(--head); }
+.btn.small { padding: 6px 14px; font-size: .95rem; }
+.tabs a.quiz-tab { background: var(--head); border-color: var(--head); color: #fff; }
+.sq-q { margin: 14px 0; padding: 16px 20px; min-width: 0; }
+.sq-q legend { float: left; width: 100%; padding: 0; margin: 0 0 10px; font-weight: 700; color: var(--dark); font-size: 1.05rem; }
+.sq-q legend + * { clear: both; }
+.sq-n { display: inline-block; min-width: 30px; height: 30px; line-height: 30px; text-align: center; border-radius: 50%;
+  background: var(--head); color: #fff; font-size: .9rem; margin-right: 6px; }
+.sq-opt { display: flex; align-items: flex-start; gap: 12px; margin: 6px 0; padding: 10px 14px; border: 2px solid var(--line);
+  border-radius: 10px; cursor: pointer; background: var(--card); }
+.sq-opt:hover { border-color: var(--accent); }
+.sq-opt input { flex: none; width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--accent); cursor: pointer; }
+.sq-opt:has(input:checked) { border-color: var(--accent); background: var(--soft); }
+.sq-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 10px; }
+.sq-actions .sq-go { font-size: 1.1rem; padding: 12px 26px; }
+.sq-warn { font-weight: 700; color: #b91c1c; }
+.sq-result { border: 3px solid var(--head); }
+.sq-result:focus { outline: none; }
+.sq-bars { margin: 6px 0 14px; }
+.sq-bar { display: grid; grid-template-columns: minmax(140px, 260px) 1fr auto; align-items: center; gap: 10px; margin: 6px 0; }
+.sq-bar .lab { font-weight: 600; }
+.sq-bar .track { height: 16px; border-radius: 8px; background: var(--bg); border: 1px solid var(--line); overflow: hidden; }
+.sq-bar .fill { display: block; height: 100%; background: var(--accent); opacity: .45; }
+.sq-bar.top .lab { color: var(--accent); font-weight: 800; } .sq-bar.top .fill { opacity: 1; }
+.sq-bar .num { font-weight: 700; white-space: nowrap; }
+.sq-style { border-left: 5px solid var(--head); padding: 2px 0 2px 16px; margin: 14px 0; }
+.sq-style h3 { margin-top: .4rem; }
+.sq-all summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+
 .foot { text-align: center; color: var(--muted); font-size: .85rem; padding: 24px 16px 40px; }
 
 @media (max-width: 860px) {
@@ -122,4 +170,15 @@ body.lb-open { overflow: hidden; }
   .tabs { top: 64px; }
   .gloss { grid-template-columns: 1fr; } .gloss dd { margin-bottom: 8px; }
   .questions li { grid-template-columns: 40px 1fr; } .qm { grid-column: 2; }
+  .sq-q { padding: 14px; }
+  .sq-bar { grid-template-columns: 1fr auto; } .sq-bar .track { grid-column: 1 / -1; grid-row: 2; }
+}
+
+/* printing a quiz page (or any page): just the content */
+@media print {
+  .top, .side, .tabs, .foot, .sq-actions, .menu-btn, .btn { display: none !important; }
+  .layout { display: block; } main { padding: 0; } body { background: #fff; font-size: 12pt; }
+  .card { border: 1px solid #999; break-inside: avoid; } .sq-q { break-inside: avoid; }
+  .sq-all { display: none; } .sq-all[open] { display: block; }
+  .sq-bar .fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
