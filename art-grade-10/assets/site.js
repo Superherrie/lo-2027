@@ -1,4 +1,18 @@
-// Learner website: slide viewer, self-marking quiz, mobile menu, tab highlight. No tracking, nothing is stored or sent.
+// Learner website: slide viewer, self-marking quiz, mobile menu, tab highlight. No tracking and nothing is sent anywhere.
+// The only thing kept is on this device: the last class and lesson opened, so the front page can offer
+// "Continue: Grade 8 LO · Lesson 5" (localStorage, wrapped in try/catch; the site works without it).
+(function () {
+  try {
+    var m = location.pathname.match(/\/((art-)?grade-(\d+))\/([\w.-]+\.html)$/);
+    if (!m) return;
+    var cls = "Grade " + m[3] + (m[2] ? " Visual Arts" : " LO");
+    localStorage.setItem("lwa-class", JSON.stringify({ href: m[1] + "/index.html", label: cls }));
+    if (/^lesson-/.test(m[4])) {
+      var t = (document.title || "").split(":")[0].replace(/^Term \d+ · /, "").trim();
+      localStorage.setItem("lwa-last", JSON.stringify({ href: m[1] + "/" + m[4], label: cls + (t ? " · " + t : "") }));
+    }
+  } catch (e) { /* storage blocked: nothing to remember */ }
+})();
 (function () {
   // mobile menu
   var btn = document.querySelector(".menu-btn"), nav = document.getElementById("nav");
