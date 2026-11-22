@@ -48,7 +48,9 @@ main { padding: 24px 28px 60px; min-width: 0; }
 .callout { border-radius: 12px; padding: 12px 16px; margin: 14px 0; }
 .callout p { margin: .3rem 0 0; }
 /* case studies with the friends' pictures (Angela, 21 Nov 2026) */
-.callout.case { background: var(--peach); }
+.callout.case { background: var(--peach); border-radius: 18px; overflow: hidden; }
+/* Herman, 22 Nov 2026: the scene photo runs edge to edge across the top of the case-study box, as in the books */
+.callout.case > .case-scene:first-child { width: calc(100% + 32px); max-width: none; margin: -12px -16px 8px; border-radius: 0; }
 .callout.case h3 { margin-top: .4rem; text-transform: uppercase; font-size: 1rem; letter-spacing: .02em; }
 .case-scene { display: block; width: 100%; aspect-ratio: 3.4 / 1; object-fit: cover; border-radius: 10px; }
 .case-faces { display: flex; gap: 12px; flex-wrap: wrap; }
